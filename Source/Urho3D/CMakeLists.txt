@@ -43,6 +43,10 @@ endif ()
 # Save keep the preprocessor macros (for using the Urho3D library) for later use in generating Urho3D.pc file
 get_directory_property (URHO3D_COMPILE_DEFINITIONS DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} COMPILE_DEFINITIONS)
 
+# Urho3D Options
+set(URHO3D_COORDINATE_SYSTEM 1) #URHO3D_LH_ZXY
+if(URHO3D_RH_YXZ)
+
 # Define preprocessor macros (for building the Urho3D library)
 add_definitions (-DURHO3D_IS_BUILDING)
 if (ANDROID AND DEFINED ENV{ASSET_DIR_INDICATOR})
@@ -464,7 +468,8 @@ string (REGEX REPLACE "include/[^;]+(DebugNew|Direct3D|ODBC|OpenGL|Precompiled|S
 string (REGEX REPLACE "include/([^;]+)" "#include <\\1>" URHO_HEADERS "${GENERATED_HEADERS};;${URHO_HEADERS}")
 string (REPLACE ";" \n URHO_HEADERS "${URHO_HEADERS}")
 configure_file (${CMAKE_CURRENT_SOURCE_DIR}/Urho3DAll.h.in ${CMAKE_CURRENT_BINARY_DIR}/Urho3DAll.h)
-install_header_files (FILES ${CMAKE_CURRENT_BINARY_DIR}/Urho3DAll.h ${CMAKE_CURRENT_BINARY_DIR}/librevision.h DESTINATION ${DEST_INCLUDE_DIR})
+configure_file (${CMAKE_CURRENT_SOURCE_DIR}/Urho3DConfig.h.in ${CMAKE_CURRENT_BINARY_DIR}/Urho3DConfig.h)
+install_header_files (FILES ${CMAKE_CURRENT_BINARY_DIR}/Urho3DAll.h ${CMAKE_CURRENT_BINARY_DIR}/UrhoConfig.h ${CMAKE_CURRENT_BINARY_DIR}/librevision.h DESTINATION ${DEST_INCLUDE_DIR})
 
 # Generate platform specific pkg-config file for the benefit of Urho3D library users via SDK without CMake
 if (ABSOLUTE_PATH_LIBS)
