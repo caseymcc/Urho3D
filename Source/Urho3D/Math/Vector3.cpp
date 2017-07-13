@@ -28,6 +28,8 @@
 
 #include "../DebugNew.h"
 
+#include "Urho3DConfig.h"
+
 namespace Urho3D
 {
 
@@ -35,7 +37,8 @@ const Vector3 Vector3::ZERO;
 const Vector3 Vector3::ONE(1.0f, 1.0f, 1.0f);
 const IntVector3 IntVector3::ZERO;
 const IntVector3 IntVector3::ONE(1, 1, 1);
-#elif defined URHO3D_RH_YXZ //Right Hand Y-forward X-right Z-up
+
+#if URHO3D_COORDINATE_SYSTEM == URHO3D_RH_YXZ //Right Hand Y-forward X-right Z-up
 const Vector3 Vector3::LEFT(-1.0f, 0.0f, 0.0f);
 const Vector3 Vector3::RIGHT(1.0f, 0.0f, 0.0f);
 const Vector3 Vector3::UP(0.0f, 0.0f, 1.0f);
